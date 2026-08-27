@@ -1,0 +1,44 @@
+import { Joi, Segments } from "celebrate"
+import { isValidObjectId } from 'mongoose';
+
+export const getAllProductsSchema = {
+  [Segments.QUERY]: Joi.object({
+    page: Joi.number().integer().min(1).default(1),
+    perPage: Joi.number().integer().min(1).max(12).default(8),
+    sortBy: Joi.string().valid("price", "createdAt", "title").default("createdAt"),
+    order: Joi.string().valid("asc", "desc").default("desc"),
+    search: Joi.string().trim().allow('').optional(),
+  }),
+};
+
+export const objectIdValidator = (value, helpers) => {
+  return !isValidObjectId(value) ? helpers.message("Invalid id format") : value;
+};
+
+export const createProductSchema = {
+  [Segments.BODY]: Joi.object({
+    title: Joi.string().required().min(1),
+    description: Joi.string().optional(),
+    price: Joi.number().required().min(0),
+    category: Joi.string().optional(),
+    inStock: Joi.boolean().default(true),
+  }),
+};
+
+export const productIdParamSchema = {
+  [Segments.PARAMS]: Joi.object({
+    id: Joi.string().custom(objectIdValidator).required(),
+  }),
+};
+
+export const updateProductSchema = {
+  [Segments.PARAMS]: Joi.object({
+    id: Joi.string().custom(objectIdValidator).required(),
+  }),
+  [Segments.BODY]: Joi.object({
+    title: Joi.string().optional().min(1),
+    price: Joi.number().optional().min(0),
+    category: Joi.string().optional(),
+    inStock: Joi.boolean().default(true).optional(),
+  }).min(1),
+}

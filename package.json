@@ -1,0 +1,41 @@
+{
+  "name": "shirts-shop-node",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/server.js",
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Artemmm008/shirts-shop-node.git"
+  },
+  "keywords": [],
+  "author": "Artem <artemshkola141@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Artemmm008/shirts-shop-node/issues"
+  },
+  "homepage": "https://github.com/Artemmm008/shirts-shop-node#readme",
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.8.0",
+    "globals": "^17.9.0",
+    "nodemon": "^3.1.14"
+  },
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "celebrate": "^15.0.3",
+    "cloudinary": "^2.10.1",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.6",
+    "crypto": "^1.0.1",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "http-errors": "^2.0.1",
+    "mongoose": "^9.9.1",
+    "multer": "^2.2.0",
+    "stripe": "^22.5.0"
+  }
+}
