@@ -19,8 +19,8 @@ const productSchema = new Schema(
       type: String,
     },
     imageUrl: {
-      type: String,
-      default: '',
+      type: [String],
+      default: [],
     },
     inStock: {
       type: Boolean,

@@ -79,15 +79,15 @@ export const updateProduct = async (req, res) => {
 export const uploadProductImage = async (req, res) => {
   const { id } = req.params;
 
-  if (!req.file) {
-    throw createHttpError(404, "No file")
-  };
+  if (!req.files || req.files.length === 0) {
+    throw createHttpError(404, "No file");
+  }
 
-  const result = await saveFileToCloudinary(req.file.buffer);
+  const results = await Promise.all(req.files.map((file) => saveFileToCloudinary(file.buffer)));
 
   const product = await Product.findOneAndUpdate(
     { _id: id },
-    { imageUrl: result.secure_url },
+    { imageUrl: results.map((result) => result.secure_url) },
     { returnDocument: "after" },
   );
 
