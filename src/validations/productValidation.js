@@ -1,6 +1,8 @@
 import { Joi, Segments } from "celebrate"
 import { isValidObjectId } from 'mongoose';
 
+const ALLOWED_SIZES = ["XS", "S", "M", "L", "XL", "XXL"];
+
 export const getAllProductsSchema = {
   [Segments.QUERY]: Joi.object({
     page: Joi.number().integer().min(1).default(1),
@@ -8,6 +10,7 @@ export const getAllProductsSchema = {
     sortBy: Joi.string().valid("price", "createdAt", "title").default("createdAt"),
     order: Joi.string().valid("asc", "desc").default("desc"),
     search: Joi.string().trim().allow('').optional(),
+    size: Joi.string().valid(...ALLOWED_SIZES).optional(),
   }),
 };
 
@@ -21,6 +24,7 @@ export const createProductSchema = {
     description: Joi.string().optional(),
     price: Joi.number().required().min(0),
     category: Joi.string().optional(),
+    sizes: Joi.array().items(Joi.string().valid(...ALLOWED_SIZES)).default(["S", "M", "L", "XL"]),
     inStock: Joi.boolean().default(true),
   }),
 };
@@ -39,6 +43,7 @@ export const updateProductSchema = {
     title: Joi.string().optional().min(1),
     price: Joi.number().optional().min(0),
     category: Joi.string().optional(),
+    sizes: Joi.array().items(Joi.string().valid(...ALLOWED_SIZES)).optional(),
     inStock: Joi.boolean().default(true).optional(),
   }).min(1),
 }

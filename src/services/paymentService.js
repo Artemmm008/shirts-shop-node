@@ -29,6 +29,7 @@ export const createCheckoutSession = async (orderId, userId = null, guestId = nu
       currency: "usd",
       product_data: {
         name: item.title,
+        size: item.size,
       },
       unit_amount: Math.round(item.price * 100),
     },

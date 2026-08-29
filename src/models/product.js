@@ -22,6 +22,11 @@ const productSchema = new Schema(
       type: [String],
       default: [],
     },
+    sizes: {
+      type: [String],
+      enum: ["XS", "S", "M", "L", "XL", "XXL"],
+      default: ["S", "M", "L", "XL"],
+    },
     inStock: {
       type: Boolean,
       default: true,
