@@ -1,7 +1,7 @@
 import { Joi, Segments } from "celebrate"
 import { isValidObjectId } from 'mongoose';
 
-const ALLOWED_SIZES = ["XS", "S", "M", "L", "XL", "XXL"];
+const ALLOWED_SIZES = ["XS", "S", "M", "L", "XL", "XXL", "ONE_SIZE"];
 
 export const objectIdValidator = (value, helpers) => {
   return !isValidObjectId(value) ? helpers.message("Invalid id format") : value;
