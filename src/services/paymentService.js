@@ -26,10 +26,9 @@ export const createCheckoutSession = async (orderId, userId = null, guestId = nu
 
   const lineItems = order.items.map((item) => ({
     price_data: {
-      currency: "usd",
+      currency: "uah",
       product_data: {
-        name: item.title,
-        size: item.size,
+        name: `${item.title} (${item.size})`,
       },
       unit_amount: Math.round(item.price * 100),
     },
