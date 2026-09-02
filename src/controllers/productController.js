@@ -15,7 +15,7 @@ export const getAllProducts = async (req, res) => {
     filter.title({ $regex: search, $options: "i" });
   };
 
-  if (category) {
+  if (category && category !== "all") {
     filter.category = category;
   }
 

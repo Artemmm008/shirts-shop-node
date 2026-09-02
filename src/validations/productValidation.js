@@ -12,7 +12,7 @@ export const getAllProductsSchema = {
     search: Joi.string().trim().allow('').optional(),
     size: Joi.string().valid(...ALLOWED_SIZES).optional(),
     category: Joi.string().trim().optional(),
-  }).unknown(true),
+  }),
 };
 
 export const objectIdValidator = (value, helpers) => {
