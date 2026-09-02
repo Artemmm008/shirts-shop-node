@@ -11,9 +11,12 @@ export const getAllProducts = async (req, res) => {
 
   const filter = {};
 
-  if (search) {
-    filter.title = ({ $regex: search, $options: "i" });
-  };
+  if (search?.trim()) {
+    filter.$or = [
+    { title: { $regex: search.trim(), $options: "i" } },
+    { description: { $regex: search.trim(), $options: "i" } },
+    ];
+  }
 
   if (category && category !== "all") {
     filter.category = category;
