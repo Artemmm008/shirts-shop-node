@@ -12,7 +12,7 @@ export const getAllProducts = async (req, res) => {
   const filter = {};
 
   if (search) {
-    filter.title({ $regex: search, $options: "i" });
+    filter.title = ({ $regex: search, $options: "i" });
   };
 
   if (category && category !== "all") {
