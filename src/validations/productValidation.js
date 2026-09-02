@@ -1,7 +1,7 @@
 import { Joi, Segments } from "celebrate"
 import { isValidObjectId } from 'mongoose';
 
-const ALLOWED_SIZES = ["XS", "S", "M", "L", "XL", "XXL", "ONE_SIZE"];
+const ALLOWED_SIZES = ["XS", "S", "M", "L", "XL", "XXL", "ONE SIZE"];
 
 export const getAllProductsSchema = {
   [Segments.QUERY]: Joi.object({
