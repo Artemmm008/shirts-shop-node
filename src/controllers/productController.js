@@ -3,30 +3,43 @@ import createHttpError from 'http-errors';
 import { saveFileToCloudinary } from '../utils/saveFileToCloudinary.js';
 
 export const getAllProducts = async (req, res) => {
-  const { page = 1, perPage = 8, sortBy = "createdAt", order = "desc", search } = req.query;
+  const { page = 1, perPage = 9, sortBy = "createdAt", order = "desc", search, category, size } = req.query;
 
-  const skip = (page - 1) * perPage;
+  const pageNum = Number(page);
+  const perPageNum = Number(perPage);
+  const skip = (pageNum - 1) * perPageNum;
 
-  const productsQuery = Product.find();
+  const filter = {};
 
   if (search) {
-    productsQuery.find({ title: { $regex: search, $options: "i" }, });
+    filter.title({ $regex: search, $options: "i" });
   };
 
-  if (sortBy) {
-    productsQuery.sort({ [sortBy]: order === "asc" ? 1 : -1 });
-  };
+  if (category) {
+    filter.category = category;
+  }
+
+  if (size) {
+    filter.sizes = size;
+  }
+
+  const countQuery = Product.find(filter).countDocuments();
+
+  const productsQuery = Product.find(filter)
+    .sort({ [sortBy]: order === "asc" ? 1 : -1 })
+    .skip(skip)
+    .limit(perPageNum);
 
   const [totalItems, products] = await Promise.all([
-    productsQuery.clone().countDocuments(),
-    productsQuery.skip(skip).limit(perPage),
+    countQuery,
+    productsQuery,
   ]);
 
-  const totalPages = Math.ceil(totalItems / perPage);
+  const totalPages = Math.ceil(totalItems / perPageNum);
 
   res.status(200).json({
-    page,
-    perPage,
+    page: pageNum,
+    perPage: perPageNum,
     totalItems,
     totalPages,
     products,

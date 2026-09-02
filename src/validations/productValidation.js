@@ -6,11 +6,12 @@ const ALLOWED_SIZES = ["XS", "S", "M", "L", "XL", "XXL", "ONE SIZE"];
 export const getAllProductsSchema = {
   [Segments.QUERY]: Joi.object({
     page: Joi.number().integer().min(1).default(1),
-    perPage: Joi.number().integer().min(1).max(100).default(8),
+    perPage: Joi.number().integer().min(1).max(100).default(9),
     sortBy: Joi.string().valid("price", "createdAt", "title").default("createdAt"),
     order: Joi.string().valid("asc", "desc").default("desc"),
     search: Joi.string().trim().allow('').optional(),
     size: Joi.string().valid(...ALLOWED_SIZES).optional(),
+    category: Joi.string().trim().optional(),
   }),
 };
 
