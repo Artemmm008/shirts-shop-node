@@ -10,7 +10,7 @@ export const getAllProductsSchema = {
     sortBy: Joi.string().valid("price", "createdAt", "title").default("createdAt"),
     order: Joi.string().valid("asc", "desc").default("desc"),
     search: Joi.string().trim().allow('').optional(),
-    size: Joi.string().valid(...ALLOWED_SIZES).optional(),
+    sizes: Joi.string().valid(...ALLOWED_SIZES).optional(),
     category: Joi.string().trim().optional(),
   }),
 };
