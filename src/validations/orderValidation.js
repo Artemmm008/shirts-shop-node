@@ -18,7 +18,7 @@ export const createOrderSchema = {
           title: Joi.string().required(),
           price: Joi.number().min(0).required(),
           quantity: Joi.number().integer().min(1).required(),
-          sizes: Joi.string().valid(...ALLOWED_SIZES).required(),
+          size: Joi.string().valid(...ALLOWED_SIZES).required(),
         })
     ).min(1).required(),
     totalAmount: Joi.number().required(),
